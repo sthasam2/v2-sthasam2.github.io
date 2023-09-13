@@ -1,0 +1,18 @@
+version: "3.8"
+
+volumes:
+  app:
+    driver: local
+
+services:
+  app:
+    image: sambeg/portfolio:${TAG}
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: ${TARGET}
+    ports:
+      - 3000:3000
+    volumes:
+      - ./:/home/development/app
+      - /home/development/app/node_modules
