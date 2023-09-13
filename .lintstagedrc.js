@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   "**/*.ts?(x)": () => "tsc --noEmit --pretty -p tsconfig.json",
   "*.{js,jsx,ts,tsx}": [
     "eslint -c .eslintrc.json ./",
