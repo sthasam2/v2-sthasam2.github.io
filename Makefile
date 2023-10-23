@@ -5,7 +5,7 @@
 TAG ?= latest
 TARGET ?= development
 PROJECT ?= portfolio
-COMPOSE := TAG=$(TAG) TARGET=$(TARGET) docker -D compose -p $(PROJECT)
+COMPOSE := TAG=$(TAG)-$(TARGET) TARGET=$(TARGET) docker -D compose -p $(PROJECT)
 
 up:
 	@$(COMPOSE) -f docker-compose.yaml up --build -d

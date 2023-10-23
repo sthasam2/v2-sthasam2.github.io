@@ -3,7 +3,7 @@
 echo "Running entrypoint.dev.sh"
 
 echo "starting storybook"
-(pnpm run storybook &)
+(yarn run storybook &)
 
 echo "starting dev server"
-pnpm run dev
+yarn run dev
