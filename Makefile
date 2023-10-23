@@ -8,6 +8,9 @@ PROJECT ?= portfolio
 COMPOSE := TAG=$(TAG) TARGET=$(TARGET) docker -D compose -p $(PROJECT)
 
 up:
+	@$(COMPOSE) -f docker-compose.yaml up --build -d
+
+up-fg:
 	@$(COMPOSE) -f docker-compose.yaml up --build
 
 down:
@@ -25,3 +28,6 @@ restart:
 
 top:
 	@docker compose top
+
+
+.PHONY: up up-foreground down start stop restart top

@@ -2,7 +2,7 @@
 #              BASE                   # 
 #######################################
 
-FROM node:20.6.1-alpine3.18  as base
+FROM node:21.0.0-alpine3.18  as base
 
 
 
@@ -18,7 +18,7 @@ WORKDIR /app
 
 COPY package.json pnpm-lock.yaml ./
 
-RUN yarn global add pnpm
+RUN corepack enable
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
   pnpm install --frozen-lockfile
 
@@ -31,7 +31,7 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
 FROM base as development
 WORKDIR /home/development/app
 
-RUN apk add vim lf bat fzf
+RUN apk add vim lf bat fzf curl
 
 ENV NODE_ENV=development
 ENV NEXT_TELEMETRY_DISABLED=1
@@ -40,10 +40,13 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 EXPOSE 3000
+EXPOSE 6006
 
 ENV PORT 3000
 
-CMD ["yarn", "run", "dev"]
+RUN chmod +x ./scripts/entrypoint.dev.sh
+
+CMD ["sh", "./scripts/entrypoint.dev.sh"]
 
 
 
