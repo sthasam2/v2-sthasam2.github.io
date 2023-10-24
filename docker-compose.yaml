@@ -2,9 +2,9 @@ version: "3.8"
 
 name: portfolio
 
-volumes:
-  node_modules:
-  pnpm_store:
+networks:
+  default:
+    name: portfolio
 
 services:
   app:
@@ -16,13 +16,14 @@ services:
     ports:
       - 3000:3000
       - 6006:6006
+      - 9339:9339
     expose:
       - 3000
       - 6006
+      - 9339
     volumes:
       - ./:/home/development/app
-      - node_modules:/home/development/app/node_modules
-      - pnpm_store:/pnpm/store
+      - ./node_modules:/home/development/app/node_modules
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://app:3000/api/health | grep -q OK"]
       interval: 5s
