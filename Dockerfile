@@ -19,7 +19,7 @@ WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
 
 RUN corepack enable
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
+RUN --mount=type=cache,id=pnpm,mode=0777,target=/root/.cache/pnpm/store \
   pnpm install --frozen-lockfile
 
 
@@ -91,4 +91,6 @@ EXPOSE 3000
 
 ENV PORT 3000
 
-CMD ["node", "server.js"]
+RUN chmod +x ./scripts/entrypoint.prod.sh
+
+CMD ["sh", "./scripts/entrypoint.prod.sh"]
