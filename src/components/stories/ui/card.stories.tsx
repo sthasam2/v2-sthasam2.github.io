@@ -7,7 +7,7 @@ import {
   CardTitle,
   CardDescription,
   CardContent,
-} from "../../ui/card";
+} from "@components/ui/card";
 
 const meta: Meta = {
   component: Card,
